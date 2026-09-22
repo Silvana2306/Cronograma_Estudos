@@ -3,290 +3,375 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cronograma de Estudos - Transpetro</title>
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <title>Planejamento Flórida & NY 2027</title>
     <style>
         :root {
-            --bg-color: #f4f7f6;
-            --primary: #2c3e50;
-            --secondary: #18bc9c;
-            --card-bg: #ffffff;
-            --text-dark: #333;
-            --accent: #d35400;
+            --primary: #ff6b6b;
+            --secondary: #4ecdc4;
+            --dark: #2d3436;
+            --light: #f7f1e3;
+            --white: #ffffff;
         }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg-color); margin: 0; padding: 20px; color: var(--text-dark); }
-        h1, h2, h3 { color: var(--primary); margin-top: 0; }
-        
-        /* Cabeçalho Superior */
-        .top-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
-        .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
-        
-        .edital-link { background: var(--primary); color: white; padding: 8px 16px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 0.9em; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .edital-link:hover { background: #1a252f; }
-        
-        .countdown { background: #fff; border: 2px dashed var(--accent); color: var(--accent); padding: 8px 16px; border-radius: 5px; font-weight: bold; font-size: 1.1em; display: inline-block; }
 
-        /* Sistema de Abas */
-        .tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #ccc; padding-bottom: 10px; overflow-x: auto; }
-        .tab-btn { padding: 10px 20px; cursor: pointer; border: none; background: #e0e0e0; border-radius: 5px; font-weight: bold; transition: 0.3s; white-space: nowrap; }
-        .tab-btn.active { background: var(--secondary); color: white; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            margin: 0;
+            padding: 20px;
+        }
 
-        /* Seletor de Semanas */
-        .week-selector { display: flex; gap: 5px; overflow-x: auto; margin-bottom: 15px; padding-bottom: 10px; }
-        .week-btn { padding: 8px 15px; border: 1px solid var(--primary); background: white; cursor: pointer; border-radius: 4px; white-space: nowrap; }
-        .week-btn.active { background: var(--primary); color: white; }
+        h1, h2, h3 {
+            text-align: center;
+        }
 
-        /* Foco da Semana (Editável) */
-        .week-focus-header { font-size: 1.2em; margin-bottom: 20px; color: var(--primary); font-weight: bold; background: #eef2f3; padding: 10px 15px; border-radius: 6px; border-left: 5px solid var(--secondary); }
-        .week-focus-text { border-bottom: 1px dashed #aaa; outline: none; padding: 2px 5px; color: var(--accent); transition: 0.2s; }
-        .week-focus-text:focus { background: #fff; border-bottom: 1px solid var(--secondary); }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
 
-        /* Layout dos Quadros (Containers duplos) */
-        .dual-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        @media(max-width: 768px) { .dual-container { grid-template-columns: 1fr; } }
-        .person-board { background: #eef2f3; padding: 15px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        
-        /* Kanban do Cronograma */
-        .days-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 15px; }
-        .day-column { background: var(--card-bg); padding: 10px; border-radius: 6px; min-height: 200px; border: 1px solid #ddd; }
-        .day-title { text-align: center; font-size: 0.9em; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-bottom: 10px; font-weight: bold; }
-        
-        /* Cartões de Tarefa */
-        .task-card { background: #fff; border: 1px solid #ccc; padding: 8px; border-radius: 4px; margin-bottom: 8px; display: flex; flex-direction: column; gap: 5px; cursor: grab; border-left: 5px solid var(--secondary); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .task-card:active { cursor: grabbing; }
-        .task-header { display: flex; justify-content: space-between; align-items: center; }
-        .task-title { flex-grow: 1; outline: none; font-size: 0.85em; }
-        .task-actions { display: flex; gap: 5px; align-items: center; }
-        .color-picker { width: 20px; height: 20px; border: none; cursor: pointer; padding: 0; background: none; }
-        
-        /* Botões de Adição Genericos */
-        .add-btn { width: 100%; padding: 8px; background: none; border: 1px dashed #aaa; cursor: pointer; color: #555; margin-top: 10px; border-radius: 4px; font-weight: bold; }
-        .add-btn:hover { background: #e0e0e0; }
+        /* Card Style */
+        .card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
 
-        /* Aba de Materiais */
-        textarea { width: 100%; height: 150px; padding: 10px; margin-top: 10px; border-radius: 4px; border: 1px solid #ccc; resize: vertical; box-sizing: border-box; }
-        .file-upload { margin-top: 15px; padding: 15px; border: 2px dashed var(--secondary); text-align: center; border-radius: 4px; background: #f9f9f9; cursor: pointer; }
-        
-        /* Aba de Checklist */
-        .checklist-item { display: flex; align-items: center; gap: 10px; background: #fff; padding: 10px; border-radius: 5px; margin-bottom: 8px; border: 1px solid #ddd; border-left: 4px solid var(--primary); }
-        .checklist-item input[type="checkbox"] { transform: scale(1.2); cursor: pointer; }
-        .checklist-item input[type="text"] { flex-grow: 1; border: none; outline: none; font-size: 1em; background: transparent; }
-        .checklist-item.checked { opacity: 0.6; text-decoration: line-through; border-left-color: #888; }
+        /* Finanças */
+        .finance-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .progress-bar-bg {
+            background-color: #eee;
+            border-radius: 10px;
+            height: 25px;
+            width: 100%;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-bar-fill {
+            background-color: var(--secondary);
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        input[type="number"], input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            flex: 1;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #ff5252;
+        }
+
+        /* Tabela de Preços */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        /* Checklists */
+        .lists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .list-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .list-section li {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .list-section input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .list-section li.checked span {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        .delete-btn {
+            background: none;
+            color: red;
+            margin-left: auto;
+            padding: 0;
+            font-size: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .finance-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Cabeçalho com Relógio e Edital -->
-    <div class="top-header">
-        <h1>📚 Cronograma de Estudos</h1>
-        <div class="header-right">
-            <a href="https://www.cesgranrio.org.br/" target="_blank" class="edital-link">📄 Acessar Edital Oficial</a>
-            <div id="countdown" class="countdown">Calculando o tempo...</div>
-        </div>
+<div class="container">
+    <h1>✈️ Mega Viagem: Flórida & NY (2027)</h1>
+
+    <!-- PREÇOS E ESTIMATIVAS -->
+    <div class="card">
+        <h2>📊 Estimativas de Preços Base</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item / Categoria</th>
+                    <th>Valor Estimado (Por Pessoa)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Passagem Internacional (GIG - MCO | NYC - GIG)</td>
+                    <td>R$ 3.200 a R$ 4.600</td>
+                </tr>
+                <tr>
+                    <td>Voo Interno (Orlando - Nova York)</td>
+                    <td>R$ 400 a R$ 800 (com mala)</td>
+                </tr>
+                <tr>
+                    <td>Ingressos Broadway</td>
+                    <td>R$ 500 a R$ 900</td>
+                </tr>
+                <tr>
+                    <td>Ingressos Baseball (MLB)</td>
+                    <td>R$ 150 a R$ 400</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
-    <!-- Navegação das Abas -->
-    <div class="tabs">
-        <button class="tab-btn active" onclick="openTab('cronograma')">📅 Cronograma</button>
-        <button class="tab-btn" onclick="openTab('materiais')">📂 Materiais e PDFs</button>
-        <button class="tab-btn" onclick="openTab('checklist')">✅ Checklist da Prova</button>
-    </div>
-
-    <!-- ABA 1: CRONOGRAMA -->
-    <div id="cronograma" class="tab-content active">
-        <div class="week-selector" id="weekSelector"></div>
-        <div class="week-focus-header">
-            🎯 Foco desta semana: <span id="week-focus-text" class="week-focus-text" contenteditable="true"></span>
-        </div>
-        <div class="dual-container">
-            <div class="person-board">
-                <h2>👩‍💻 Silvana</h2>
-                <div class="days-grid" id="silvana-board"></div>
-            </div>
-            <div class="person-board">
-                <h2>👩‍🎓 Júlia</h2>
-                <div class="days-grid" id="julia-board"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ABA 2: MATERIAIS E ANOTAÇÕES -->
-    <div id="materiais" class="tab-content">
-        <div class="dual-container">
-            <div class="person-board">
-                <h2>Anotações - Silvana</h2>
-                <textarea placeholder="Cole seus resumos, dúvidas e links úteis aqui..."></textarea>
-                <div class="file-upload">
-                    <label style="cursor: pointer;">📎 Clique para Anexar PDF de Questões/Teoria<br><br><input type="file" accept="application/pdf" multiple style="display:none;"></label>
+    <!-- META FINANCEIRA -->
+    <div class="card">
+        <h2>💰 Meta Financeira da Dupla</h2>
+        <div class="finance-grid">
+            <div>
+                <p><strong>Meta Total (2 Pessoas):</strong> R$ 42.000,00</p>
+                <p><strong>Total Poupado:</strong> R$ <span id="valor-atual">0</span></p>
+                <div class="input-group">
+                    <input type="number" id="input-dinheiro" placeholder="Adicionar valor em R$">
+                    <button onclick="adicionarDinheiro()">Atualizar</button>
+                    <button onclick="zerarDinheiro()" style="background-color: #777;">Zerar</button>
                 </div>
             </div>
-            <div class="person-board">
-                <h2>Anotações - Júlia</h2>
-                <textarea placeholder="Cole seus resumos, dúvidas e links úteis aqui..."></textarea>
-                <div class="file-upload">
-                    <label style="cursor: pointer;">📎 Clique para Anexar PDF de Questões/Teoria<br><br><input type="file" accept="application/pdf" multiple style="display:none;"></label>
+            <div>
+                <p>Progresso:</p>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progress-bar">0%</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ABA 3: CHECKLIST DO DIA DA PROVA -->
-    <div id="checklist" class="tab-content">
-        <div class="dual-container">
-            <!-- Checklist Silvana -->
-            <div class="person-board">
-                <h2>🎒 Mochila da Silvana</h2>
-                <div id="checklist-silvana">
-                    <!-- Itens gerados via JS -->
-                </div>
-                <button class="add-btn" onclick="addChecklistItem('checklist-silvana')">+ Adicionar Item</button>
-            </div>
-            <!-- Checklist Júlia -->
-            <div class="person-board">
-                <h2>🎒 Mochila da Júlia</h2>
-                <div id="checklist-julia">
-                    <!-- Itens gerados via JS -->
-                </div>
-                <button class="add-btn" onclick="addChecklistItem('checklist-julia')">+ Adicionar Item</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Lógica do Relógio de Contagem Regressiva (Data da Prova: 6 de Dezembro de 2026)
-        const examDate = new Date("2026-12-06T13:00:00").getTime();
-        const countdownTimer = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = examDate - now;
-
-            if (distance < 0) {
-                clearInterval(countdownTimer);
-                document.getElementById("countdown").innerHTML = "É HOJE! BOA PROVA! 🚀";
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    <!-- CHECKLISTS -->
+    <div class="card">
+        <h2>✅ Checklists de Viagem</h2>
+        <div class="lists-grid">
             
-            document.getElementById("countdown").innerHTML = `⏳ Faltam: ${days} dias, ${hours}h e ${minutes}m`;
-        }, 1000);
-
-        // Sistema de Abas
-        function openTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(tabName).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
-
-        // Sistema de Semanas e Focos
-        const weekData = {};
-        for (let i = 1; i <= 11; i++) {
-            let defaultFocus = "";
-            if ([1, 4, 7].includes(i)) defaultFocus = "Processos Administrativos e Legislação";
-            else if ([2, 5, 8].includes(i)) defaultFocus = "Logística e Gestão da Cadeia de Suprimentos";
-            else if ([3, 6, 9].includes(i)) defaultFocus = "Finanças e Contabilidade";
-            else defaultFocus = "Revisão de Véspera (Mesclando Tudo)";
-            weekData[i] = { focus: defaultFocus };
-        }
-
-        let currentWeek = 1;
-        const focusTextElement = document.getElementById('week-focus-text');
-        focusTextElement.addEventListener('input', (e) => { weekData[currentWeek].focus = e.target.innerText; });
-
-        const weekSelector = document.getElementById('weekSelector');
-        for (let i = 1; i <= 11; i++) {
-            const btn = document.createElement('button');
-            btn.className = `week-btn ${i === 1 ? 'active' : ''}`;
-            btn.textContent = `Semana ${i}`;
-            btn.onclick = (e) => {
-                document.querySelectorAll('.week-btn').forEach(b => b.classList.remove('active'));
-                e.target.classList.add('active');
-                currentWeek = i;
-                focusTextElement.innerText = weekData[currentWeek].focus;
-            };
-            weekSelector.appendChild(btn);
-        }
-        focusTextElement.innerText = weekData[1].focus;
-
-        // Sistema Kanban (Cronograma)
-        const diasDaSemana = ['Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo', 'Segunda'];
-        const tarefasIniciaisSilvana = {
-            'Terça': ['08h: Proc. Adm (Recrutamento)', '21h30: Português (Crase)'],
-            'Domingo': ['09h: Simulado (60Q)'],
-            'Segunda': ['09h: Correção do Simulado']
-        };
-
-        function createTaskCard(text, color = '#18bc9c') {
-            const card = document.createElement('div');
-            card.className = 'task-card';
-            card.style.borderLeftColor = color;
-            card.innerHTML = `
-                <div class="task-header">
-                    <span class="task-title" contenteditable="true">${text}</span>
+            <!-- Lista Compartilhada -->
+            <div class="list-section">
+                <h3 style="color: var(--secondary)">Compartilhado</h3>
+                <div class="input-group">
+                    <input type="text" id="input-comum" placeholder="Novo item...">
+                    <button onclick="adicionarTarefa('comum', 'input-comum')">+</button>
                 </div>
-                <div class="task-actions">
-                    <input type="checkbox" title="Concluído">
-                    <input type="color" class="color-picker" value="${color}" onchange="this.parentElement.parentElement.style.borderLeftColor = this.value">
-                    <button style="border:none; background:none; cursor:pointer; color:red; font-size:12px;" onclick="this.parentElement.parentElement.remove()">🗑️</button>
+                <ul id="lista-comum"></ul>
+            </div>
+
+            <!-- Lista Silvana -->
+            <div class="list-section">
+                <h3 style="color: var(--primary)">Silvana</h3>
+                <div class="input-group">
+                    <input type="text" id="input-silvana" placeholder="Novo item...">
+                    <button onclick="adicionarTarefa('silvana', 'input-silvana')">+</button>
                 </div>
-            `;
-            return card;
+                <ul id="lista-silvana"></ul>
+            </div>
+
+            <!-- Lista Julia -->
+            <div class="list-section">
+                <h3 style="color: var(--primary)">Julia</h3>
+                <div class="input-group">
+                    <input type="text" id="input-julia" placeholder="Novo item...">
+                    <button onclick="adicionarTarefa('julia', 'input-julia')">+</button>
+                </div>
+                <ul id="lista-julia"></ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- LÓGICA DO FINANCEIRO ---
+    const META_TOTAL = 42000;
+    
+    function atualizarInterfaceFinanceira() {
+        let poupado = localStorage.getItem('viagem_poupado') || 0;
+        poupado = parseFloat(poupado);
+        
+        document.getElementById('valor-atual').innerText = poupado.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+        
+        let porcentagem = (poupado / META_TOTAL) * 100;
+        if (porcentagem > 100) porcentagem = 100;
+        
+        const barra = document.getElementById('progress-bar');
+        barra.style.width = porcentagem + '%';
+        barra.innerText = Math.round(porcentagem) + '%';
+    }
+
+    function adicionarDinheiro() {
+        const input = document.getElementById('input-dinheiro');
+        const valor = parseFloat(input.value);
+        if (!isNaN(valor) && valor > 0) {
+            let atual = parseFloat(localStorage.getItem('viagem_poupado') || 0);
+            localStorage.setItem('viagem_poupado', atual + valor);
+            input.value = '';
+            atualizarInterfaceFinanceira();
         }
+    }
 
-        function renderBoard(boardId, tarefas) {
-            const board = document.getElementById(boardId);
-            diasDaSemana.forEach(dia => {
-                const col = document.createElement('div');
-                col.className = 'day-column';
-                col.innerHTML = `<div class="day-title">${dia}</div>`;
-                
-                const taskList = document.createElement('div');
-                taskList.className = 'task-list';
-                taskList.style.minHeight = '150px';
-
-                if (tarefas && tarefas[dia]) {
-                    tarefas[dia].forEach(t => taskList.appendChild(createTaskCard(t)));
-                }
-                
-                col.appendChild(taskList);
-                const addBtn = document.createElement('button');
-                addBtn.className = 'add-btn';
-                addBtn.textContent = '+ Novo horário/tarefa';
-                addBtn.onclick = () => taskList.appendChild(createTaskCard('Nova tarefa...'));
-                col.appendChild(addBtn);
-                board.appendChild(col);
-
-                new Sortable(taskList, { group: 'shared', animation: 150 });
-            });
+    function zerarDinheiro() {
+        if(confirm("Tem certeza que deseja zerar a poupança?")) {
+            localStorage.setItem('viagem_poupado', 0);
+            atualizarInterfaceFinanceira();
         }
-        renderBoard('silvana-board', tarefasIniciaisSilvana);
-        renderBoard('julia-board', {});
+    }
 
-        // Lógica do Checklist
-        const itensEssenciais = ['RG Original (ou CNH)', 'Caneta Esferográfica Preta (Corpo Transparente)', 'Cartão de Confirmação (Impresso)', 'Água em garrafa transparente', 'Lanche leve (Barra de cereal, chocolate)'];
+    // --- LÓGICA DOS CHECKLISTS ---
+    const itensPadrao = {
+        comum: [
+            { texto: 'Protetor Solar', feito: false },
+            { texto: 'Adaptador de Tomada', feito: false },
+            { texto: 'Powerbank', feito: false }
+        ],
+        silvana: [
+            { texto: 'Passaporte & Visto', feito: false },
+            { texto: 'Patins (Venice Beach)', feito: false }
+        ],
+        julia: [
+            { texto: 'Passaporte & Visto', feito: false }
+        ]
+    };
 
-        function addChecklistItem(containerId, text = 'Novo item...') {
-            const container = document.getElementById(containerId);
-            const item = document.createElement('div');
-            item.className = 'checklist-item';
-            item.innerHTML = `
-                <input type="checkbox" onchange="this.parentElement.classList.toggle('checked', this.checked)">
-                <input type="text" value="${text}">
-                <button style="border:none; background:none; cursor:pointer; color:red; font-size:16px;" onclick="this.parentElement.remove()">×</button>
-            `;
-            container.appendChild(item);
-        }
-
-        // Preenchendo os checklists iniciais
-        itensEssenciais.forEach(item => {
-            addChecklistItem('checklist-silvana', item);
-            addChecklistItem('checklist-julia', item);
+    function carregarListas() {
+        ['comum', 'silvana', 'julia'].forEach(listaId => {
+            let dados = JSON.parse(localStorage.getItem(`lista_${listaId}`));
+            if (!dados) {
+                dados = itensPadrao[listaId];
+                salvarLista(listaId, dados);
+            }
+            renderizarLista(listaId, dados);
         });
+    }
 
-    </script>
+    function salvarLista(listaId, dados) {
+        localStorage.setItem(`lista_${listaId}`, JSON.stringify(dados));
+    }
+
+    function renderizarLista(listaId, dados) {
+        const ul = document.getElementById(`lista-${listaId}`);
+        ul.innerHTML = '';
+        
+        dados.forEach((item, index) => {
+            const li = document.createElement('li');
+            if (item.feito) li.className = 'checked';
+            
+            li.innerHTML = `
+                <input type="checkbox" ${item.feito ? 'checked' : ''} onclick="alternarTarefa('${listaId}', ${index})">
+                <span>${item.texto}</span>
+                <button class="delete-btn" onclick="deletarTarefa('${listaId}', ${index})">✖</button>
+            `;
+            ul.appendChild(li);
+        });
+    }
+
+    function adicionarTarefa(listaId, inputId) {
+        const input = document.getElementById(inputId);
+        const texto = input.value.trim();
+        
+        if (texto !== '') {
+            let dados = JSON.parse(localStorage.getItem(`lista_${listaId}`));
+            dados.push({ texto: texto, feito: false });
+            salvarLista(listaId, dados);
+            renderizarLista(listaId, dados);
+            input.value = '';
+        }
+    }
+
+    function alternarTarefa(listaId, index) {
+        let dados = JSON.parse(localStorage.getItem(`lista_${listaId}`));
+        dados[index].feito = !dados[index].feito;
+        salvarLista(listaId, dados);
+        renderizarLista(listaId, dados);
+    }
+
+    function deletarTarefa(listaId, index) {
+        let dados = JSON.parse(localStorage.getItem(`lista_${listaId}`));
+        dados.splice(index, 1);
+        salvarLista(listaId, dados);
+        renderizarLista(listaId, dados);
+    }
+
+    // Inicialização ao carregar a página
+    window.onload = function() {
+        atualizarInterfaceFinanceira();
+        carregarListas();
+    };
+</script>
+
 </body>
 </html>
