@@ -3,197 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planejamento Flórida & NY 2027</title>
+    <title>Planejamento Flórida & NY</title>
     <style>
-        :root {
-            --primary: #ff6b6b;
-            --secondary: #4ecdc4;
-            --dark: #2d3436;
-            --light: #f7f1e3;
-            --white: #ffffff;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--light);
-            color: var(--dark);
-            margin: 0;
-            padding: 20px;
-        }
-
-        h1, h2, h3 {
-            text-align: center;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        /* Card Style */
-        .card {
-            background: var(--white);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        /* Finanças */
-        .finance-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .progress-bar-bg {
-            background-color: #eee;
-            border-radius: 10px;
-            height: 25px;
-            width: 100%;
-            overflow: hidden;
-            margin-top: 10px;
-        }
-
-        .progress-bar-fill {
-            background-color: var(--secondary);
-            height: 100%;
-            width: 0%;
-            transition: width 0.4s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 12px;
-        }
-
-        .input-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        input[type="number"], input[type="text"] {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            flex: 1;
-        }
-
-        button {
-            padding: 10px 15px;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        button:hover {
-            background-color: #ff5252;
-        }
-
-        /* Tabela de Preços */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        th, td {
-            text-align: left;
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: var(--secondary);
-            color: white;
-        }
-
-        /* Checklists */
-        .lists-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .list-section ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .list-section li {
-            display: flex;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .list-section input[type="checkbox"] {
-            margin-right: 10px;
-            transform: scale(1.2);
-        }
-
-        .list-section li.checked span {
-            text-decoration: line-through;
-            color: #888;
-        }
-
-        .delete-btn {
-            background: none;
-            color: red;
-            margin-left: auto;
-            padding: 0;
-            font-size: 16px;
-        }
-
-        @media (max-width: 600px) {
-            .finance-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        /* O CSS continua exatamente o mesmo da versão anterior */
+        :root { --primary: #ff6b6b; --secondary: #4ecdc4; --dark: #2d3436; --light: #f7f1e3; --white: #ffffff; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: var(--light); color: var(--dark); margin: 0; padding: 20px; }
+        h1, h2, h3 { text-align: center; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .card { background: var(--white); border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .finance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: center; }
+        .progress-bar-bg { background-color: #eee; border-radius: 10px; height: 25px; width: 100%; overflow: hidden; margin-top: 10px; }
+        .progress-bar-fill { background-color: var(--secondary); height: 100%; width: 0%; transition: width 0.4s ease; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 12px; }
+        .input-group { display: flex; gap: 10px; margin-top: 10px; }
+        input[type="number"], input[type="text"] { padding: 10px; border: 1px solid #ccc; border-radius: 5px; flex: 1; }
+        button { padding: 10px 15px; background-color: var(--primary); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        button:hover { background-color: #ff5252; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #ddd; }
+        th { background-color: var(--secondary); color: white; }
+        .lists-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .list-section ul { list-style-type: none; padding: 0; }
+        .list-section li { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; }
+        .list-section div { display: flex; align-items: center; }
+        .list-section input[type="checkbox"] { margin-right: 10px; transform: scale(1.2); }
+        .list-section li.checked span { text-decoration: line-through; color: #888; }
+        .delete-btn { background: none; color: red; margin-left: auto; padding: 0; font-size: 16px; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>✈️ Mega Viagem: Flórida & NY (2027)</h1>
-
-    <!-- PREÇOS E ESTIMATIVAS -->
-    <div class="card">
-        <h2>📊 Estimativas de Preços Base</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Item / Categoria</th>
-                    <th>Valor Estimado (Por Pessoa)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Passagem Internacional (GIG - MCO | NYC - GIG)</td>
-                    <td>R$ 3.200 a R$ 4.600</td>
-                </tr>
-                <tr>
-                    <td>Voo Interno (Orlando - Nova York)</td>
-                    <td>R$ 400 a R$ 800 (com mala)</td>
-                </tr>
-                <tr>
-                    <td>Ingressos Broadway</td>
-                    <td>R$ 500 a R$ 900</td>
-                </tr>
-                <tr>
-                    <td>Ingressos Baseball (MLB)</td>
-                    <td>R$ 150 a R$ 400</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
+    <h1>✈️ Mega Viagem: Flórida & NY</h1>
+    
     <!-- META FINANCEIRA -->
     <div class="card">
         <h2>💰 Meta Financeira da Dupla</h2>
@@ -202,8 +43,8 @@
                 <p><strong>Meta Total (2 Pessoas):</strong> R$ 42.000,00</p>
                 <p><strong>Total Poupado:</strong> R$ <span id="valor-atual">0</span></p>
                 <div class="input-group">
-                    <input type="number" id="input-dinheiro" placeholder="Adicionar valor em R$">
-                    <button onclick="adicionarDinheiro()">Atualizar</button>
+                    <input type="number" id="input-dinheiro" placeholder="Adicionar R$">
+                    <button onclick="adicionarDinheiro()">Somar</button>
                     <button onclick="zerarDinheiro()" style="background-color: #777;">Zerar</button>
                 </div>
             </div>
@@ -220,8 +61,6 @@
     <div class="card">
         <h2>✅ Checklists de Viagem</h2>
         <div class="lists-grid">
-            
-            <!-- Lista Compartilhada -->
             <div class="list-section">
                 <h3 style="color: var(--secondary)">Compartilhado</h3>
                 <div class="input-group">
@@ -230,8 +69,6 @@
                 </div>
                 <ul id="lista-comum"></ul>
             </div>
-
-            <!-- Lista Silvana -->
             <div class="list-section">
                 <h3 style="color: var(--primary)">Silvana</h3>
                 <div class="input-group">
@@ -240,8 +77,6 @@
                 </div>
                 <ul id="lista-silvana"></ul>
             </div>
-
-            <!-- Lista Julia -->
             <div class="list-section">
                 <h3 style="color: var(--primary)">Julia</h3>
                 <div class="input-group">
@@ -250,127 +85,135 @@
                 </div>
                 <ul id="lista-julia"></ul>
             </div>
-
         </div>
     </div>
 </div>
 
-<script>
-    // --- LÓGICA DO FINANCEIRO ---
-    const META_TOTAL = 42000;
-    
-    function atualizarInterfaceFinanceira() {
-        let poupado = localStorage.getItem('viagem_poupado') || 0;
-        poupado = parseFloat(poupado);
-        
-        document.getElementById('valor-atual').innerText = poupado.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
-        
-        let porcentagem = (poupado / META_TOTAL) * 100;
-        if (porcentagem > 100) porcentagem = 100;
-        
-        const barra = document.getElementById('progress-bar');
-        barra.style.width = porcentagem + '%';
-        barra.innerText = Math.round(porcentagem) + '%';
-    }
+<!-- IMPORTAR FIREBASE V9 (Versão Modular) -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getFirestore, doc, onSnapshot, updateDoc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    function adicionarDinheiro() {
-        const input = document.getElementById('input-dinheiro');
-        const valor = parseFloat(input.value);
-        if (!isNaN(valor) && valor > 0) {
-            let atual = parseFloat(localStorage.getItem('viagem_poupado') || 0);
-            localStorage.setItem('viagem_poupado', atual + valor);
-            input.value = '';
-            atualizarInterfaceFinanceira();
-        }
-    }
+  // 🔴 ATENÇÃO: COLE AS SUAS CREDENCIAIS DO FIREBASE AQUI
+  const firebaseConfig = {
+  apiKey: "AIzaSyA_sw7bGSy5WZGU7snzT0pHy33h81D7DXk",
+  authDomain: "cronograma-dff4f.firebaseapp.com",
+  projectId: "cronograma-dff4f",
+  storageBucket: "cronograma-dff4f.firebasestorage.app",
+  messagingSenderId: "880920689330",
+  appId: "1:880920689330:web:679bdb8d95ae36f7b1e7ab"
+};
 
-    function zerarDinheiro() {
-        if(confirm("Tem certeza que deseja zerar a poupança?")) {
-            localStorage.setItem('viagem_poupado', 0);
-            atualizarInterfaceFinanceira();
-        }
-    }
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
-    // --- LÓGICA DOS CHECKLISTS ---
-    const itensPadrao = {
-        comum: [
-            { texto: 'Protetor Solar', feito: false },
-            { texto: 'Adaptador de Tomada', feito: false },
-            { texto: 'Powerbank', feito: false }
-        ],
-        silvana: [
-            { texto: 'Passaporte & Visto', feito: false },
-            { texto: 'Patins (Venice Beach)', feito: false }
-        ],
-        julia: [
-            { texto: 'Passaporte & Visto', feito: false }
-        ]
-    };
+  // ID fixo do documento para esse projeto
+  const docRef = doc(db, "planejamento", "viagem2027");
+  const META_TOTAL = 42000;
 
-    function carregarListas() {
-        ['comum', 'silvana', 'julia'].forEach(listaId => {
-            let dados = JSON.parse(localStorage.getItem(`lista_${listaId}`));
-            if (!dados) {
-                dados = itensPadrao[listaId];
-                salvarLista(listaId, dados);
-            }
-            renderizarLista(listaId, dados);
-        });
-    }
+  // Função para inicializar o documento no banco se ele não existir
+  async function iniciarBanco() {
+      const snap = await getDoc(docRef);
+      if (!snap.exists()) {
+          await setDoc(docRef, {
+              poupado: 0,
+              comum: [],
+              silvana: [],
+              julia: []
+          });
+      }
+  }
+  iniciarBanco();
 
-    function salvarLista(listaId, dados) {
-        localStorage.setItem(`lista_${listaId}`, JSON.stringify(dados));
-    }
+  // --- LÓGICA DE SINCRONIZAÇÃO EM TEMPO REAL ---
+  onSnapshot(docRef, (doc) => {
+      const dados = doc.data();
+      if (dados) {
+          atualizarInterfaceFinanceira(dados.poupado);
+          renderizarLista('comum', dados.comum);
+          renderizarLista('silvana', dados.silvana);
+          renderizarLista('julia', dados.julia);
+      }
+  });
 
-    function renderizarLista(listaId, dados) {
-        const ul = document.getElementById(`lista-${listaId}`);
-        ul.innerHTML = '';
-        
-        dados.forEach((item, index) => {
-            const li = document.createElement('li');
-            if (item.feito) li.className = 'checked';
-            
-            li.innerHTML = `
-                <input type="checkbox" ${item.feito ? 'checked' : ''} onclick="alternarTarefa('${listaId}', ${index})">
-                <span>${item.texto}</span>
-                <button class="delete-btn" onclick="deletarTarefa('${listaId}', ${index})">✖</button>
-            `;
-            ul.appendChild(li);
-        });
-    }
+  // --- FUNÇÕES FINANCEIRAS ---
+  function atualizarInterfaceFinanceira(poupado) {
+      document.getElementById('valor-atual').innerText = parseFloat(poupado).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+      let porcentagem = (poupado / META_TOTAL) * 100;
+      if (porcentagem > 100) porcentagem = 100;
+      const barra = document.getElementById('progress-bar');
+      barra.style.width = porcentagem + '%';
+      barra.innerText = Math.round(porcentagem) + '%';
+  }
 
-    function adicionarTarefa(listaId, inputId) {
-        const input = document.getElementById(inputId);
-        const texto = input.value.trim();
-        
-        if (texto !== '') {
-            let dados = JSON.parse(localStorage.getItem(`lista_${listaId}`));
-            dados.push({ texto: texto, feito: false });
-            salvarLista(listaId, dados);
-            renderizarLista(listaId, dados);
-            input.value = '';
-        }
-    }
+  window.adicionarDinheiro = async function() {
+      const input = document.getElementById('input-dinheiro');
+      const valor = parseFloat(input.value);
+      if (!isNaN(valor) && valor > 0) {
+          const snap = await getDoc(docRef);
+          const atual = snap.data().poupado || 0;
+          await updateDoc(docRef, { poupado: atual + valor });
+          input.value = '';
+      }
+  };
 
-    function alternarTarefa(listaId, index) {
-        let dados = JSON.parse(localStorage.getItem(`lista_${listaId}`));
-        dados[index].feito = !dados[index].feito;
-        salvarLista(listaId, dados);
-        renderizarLista(listaId, dados);
-    }
+  window.zerarDinheiro = async function() {
+      if(confirm("Tem certeza que deseja zerar a poupança?")) {
+          await updateDoc(docRef, { poupado: 0 });
+      }
+  };
 
-    function deletarTarefa(listaId, index) {
-        let dados = JSON.parse(localStorage.getItem(`lista_${listaId}`));
-        dados.splice(index, 1);
-        salvarLista(listaId, dados);
-        renderizarLista(listaId, dados);
-    }
+  // --- FUNÇÕES DOS CHECKLISTS ---
+  function renderizarLista(listaId, arrayTarefas) {
+      const ul = document.getElementById(`lista-${listaId}`);
+      ul.innerHTML = '';
+      
+      if (!arrayTarefas) return;
 
-    // Inicialização ao carregar a página
-    window.onload = function() {
-        atualizarInterfaceFinanceira();
-        carregarListas();
-    };
+      arrayTarefas.forEach((item, index) => {
+          const li = document.createElement('li');
+          if (item.feito) li.className = 'checked';
+          
+          li.innerHTML = `
+              <div>
+                  <input type="checkbox" ${item.feito ? 'checked' : ''} onchange="alternarTarefa('${listaId}', ${index})">
+                  <span>${item.texto}</span>
+              </div>
+              <button class="delete-btn" onclick="deletarTarefa('${listaId}', ${index})">✖</button>
+          `;
+          ul.appendChild(li);
+      });
+  }
+
+  window.adicionarTarefa = async function(listaId, inputId) {
+      const input = document.getElementById(inputId);
+      const texto = input.value.trim();
+      
+      if (texto !== '') {
+          const snap = await getDoc(docRef);
+          const arrayAtual = snap.data()[listaId] || [];
+          arrayAtual.push({ texto: texto, feito: false });
+          
+          await updateDoc(docRef, { [listaId]: arrayAtual });
+          input.value = '';
+      }
+  };
+
+  window.alternarTarefa = async function(listaId, index) {
+      const snap = await getDoc(docRef);
+      const arrayAtual = snap.data()[listaId];
+      arrayAtual[index].feito = !arrayAtual[index].feito;
+      
+      await updateDoc(docRef, { [listaId]: arrayAtual });
+  };
+
+  window.deletarTarefa = async function(listaId, index) {
+      const snap = await getDoc(docRef);
+      const arrayAtual = snap.data()[listaId];
+      arrayAtual.splice(index, 1);
+      
+      await updateDoc(docRef, { [listaId]: arrayAtual });
+  };
 </script>
 
 </body>
